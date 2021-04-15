@@ -1,28 +1,34 @@
 from PyInquirer import prompt
 import numpy as np 
+from colorama import init, Fore
 import pyperclip
 import random
 
 if __name__ == "__main__":
+    ## Character selection space
     allCaps = "ABCDEFGHIJKLMNOPQRSTUVWXYZ"
     allSmalls = "abcdefghijklmnopqrstuvwxyz"
     allNums = "0123456789"
     allSpecials = "@%+/!#\\?-=()[]{}$&*"
+
+    ## Welcome
+    init()
+    print(Fore.CYAN + "\n --== Welcome to Password Generator by Xyno ==--\n" + Fore.WHITE)
 
     ## password size
     pass_Size = input("Enter Password Size(8-16): ")
     try:
         pass_Size = int(pass_Size)
     except ValueError:
-        exit("Invalid Password Size")
+        exit(Fore.RED + "Invalid Password Size")
     if pass_Size > 16 or pass_Size < 8:
-        exit("Invalid Password Size")
+        exit(Fore.RED + "Invalid Password Size")
 
     ## Capital or not
     questions = [{
             'type':'list',
             'name':'capital',
-            'message':'Do you want Capital letters?: ',
+            'message':'Capital letters : ',
             'choices': ['Yes','No']
         }]
     ans = prompt(questions)['capital']
@@ -30,13 +36,13 @@ if __name__ == "__main__":
     ## Capital letter Count
     if ans == 'Yes':
         capital = True
-        count_Capital = input("How many Capital letter you want?: ")
+        count_Capital = input("Enter Capital letter count : ")
         try:
             count_Capital = int(count_Capital)
         except ValueError:
-            exit("Invalid Capital Count")
+            exit(Fore.RED + "Invalid Capital Count")
         if count_Capital > pass_Size:
-            exit("Invalid Capital Count")
+            exit(Fore.RED + "Invalid Capital Count")
     else:
         capital = False
         count_Capital = 0
@@ -45,7 +51,7 @@ if __name__ == "__main__":
     questions = [{
             'type':'list',
             'name':'special',
-            'message':'Do you want Special Characters?: ',
+            'message':'Special characters : ',
             'choices': ['Yes','No']
         }]
     ans = prompt(questions)['special']
@@ -53,13 +59,13 @@ if __name__ == "__main__":
     ## Special Character Count
     if ans == 'Yes':
         special = True
-        count_Special = input("How many Special Characters you want?: ")
+        count_Special = input("Enter Special characters count : ")
         try:
             count_Special = int(count_Special)
         except ValueError:
-            exit("Invalid Special Character Count")
+            exit(Fore.RED + "Invalid Special Character Count")
         if count_Special + count_Capital > pass_Size:
-            exit("Invalid Special Character Count")
+            exit(Fore.RED + "Invalid Special Character Count")
     else:
         special = False
         count_Special = 0
@@ -68,7 +74,7 @@ if __name__ == "__main__":
     questions = [{
             'type':'list',
             'name':'number',
-            'message':'Do you want Numbers?: ',
+            'message':'Numbers : ',
             'choices': ['Yes','No']
         }]
     ans = prompt(questions)['number']
@@ -76,13 +82,13 @@ if __name__ == "__main__":
     ## Number Count
     if ans == 'Yes':
         number = True
-        count_Number = input("How many Number you want?: ")
+        count_Number = input("Enter Number count : ")
         try:
             count_Number = int(count_Number)
         except ValueError:
-            exit("Invalid Number Count")
+            exit(Fore.RED + "Invalid Number Count")
         if count_Capital + count_Special + count_Number > pass_Size :
-            exit("Invalid Number Count")
+            exit(Fore.RED + "Invalid Number Count")
     else:
         number = False
         count_Number = 0
@@ -101,6 +107,6 @@ if __name__ == "__main__":
     random.shuffle(passNonShuffled)
     finalPassword = "".join(passNonShuffled)
 
-    print("finalPassword: ", finalPassword)
+    print("\nPassword: " + Fore.LIGHTGREEN_EX, finalPassword)
     pyperclip.copy(finalPassword)
-    print("Password copied to clipboard")
+    print(Fore.LIGHTMAGENTA_EX + "\nPassword copied to clipboard")
