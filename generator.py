@@ -10,6 +10,7 @@ if __name__ == "__main__":
     allSmalls = "abcdefghijklmnopqrstuvwxyz"
     allNums = "0123456789"
     allSpecials = "@%+/!#\\?-=()[]{}$&*"
+    #allSpecials = "!@#$%^&*()"
 
     ## Welcome
     init()
