@@ -1,5 +1,4 @@
 from PyInquirer import prompt
-import numpy as np 
 from colorama import init, Fore
 import pyperclip
 import random
